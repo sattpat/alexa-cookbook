@@ -116,38 +116,49 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
 
 Note the HTTPS URL provided (in the above, that would be `https://abc123.ngrok.io`).
 
-From the [ASK developer console](https://developer.amazon.com/alexa/console/ask) **Build** tab, select **Endpoint** from the sidebar and paste the the HTTPS URL into the **Default Region** field. Finally save your update with **Save Endpoints**.
-
-### 3. Start your debugger
-
-To debug your skill with VS Code, you'll need to add a launch configuration to your skill project. From the menu, select **Debug > Add Configuration...**. Copy and paste the following configuration to generated `launch.json` file:
+To forward requests from Alexa through ngrok to your local machine, you’ll need to add the `uri` attribute with the above ngrok-provided HTTPS URL, and a `sslCertificateType` attribute set to `Wildcard` in your `skill.json` file:
 
 ```json
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceRoot}/local-debugger.js",
-            "args": [
-                "--porftNumber", "3001",
-                "--skillEntryFile", "Path/To/index.js",
-                "--lambdaHandler", "handler"
-            ],
+  "manifest": {
+    "publishingInformation": {
+     ...
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "https://abc123.ngrok.io",
+          "sslCertificateType": "Wildcard"
         }
-    ]
+      }
+    },
+    "manifestVersion": "1.0"
+  }
 }
-
 ```
 
-Be sure to update the `--skillEntryFile` option above to your AWS Lambda handler file.
+Next, deploy your skill and interaction model:
 
-To start debugging your skill, from the menu, select `Debug > Start Debugging`.
+```bash
+$ ask deploy --target skill # deploy skill.json
+$ ask deploy --target model # deploy and build interaction model
+```
 
-### 4. Invoke your skill and debug
+### 3. Start your debugger
 
-To invoke your skill, visit the **Test** tab in the [ASK developer console](https://developer.amazon.com/alexa/console/ask). If you haven't already, enable your skill for testing by selecting the **Development** environment from the dropdown.
+To debug your skill with VS Code, follow the same instructions above in *[3. Start your debugger](#start-debugger)*.
 
-Finally, invoke your skill by typing or speaking to Alexa. All requests sent from the Alex asimulator will be forwarded your local running skill code, triggering any breakpoints you've set.
+### 4. Invoke your skill and debug from the ASK CLI
+
+To invoke your skill, first ensure that it has been enabled for development testing:
+
+```bash
+$ ask api enable-skill -s <SKILL_ID>
+```
+> NOTE: Your skill's ID can be found in the developer console in the **Build** tab, in the **Endpoint** section from the sidebar
+
+Finally, use the `dialog` command to access the Alexa simulator from the CLI:
+
+```bash
+$ ask dialog --locale en-US
+```
