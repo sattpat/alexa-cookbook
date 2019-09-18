@@ -4,7 +4,7 @@ If you plan on hosting your Alexa skill code on AWS Lambda, we’ll demonstrate 
 
 ### 1. Download the debug run script
 
-[Download a copy of the script for Node.js](local-debugger.js) and save it to the root of your skill’s project directory. This script will help invoke your skill code in your local environment.
+[Download a copy of the script for Python](local-debugger.py) and save it to the root of your skill’s project directory. This script will help invoke your skill code in your local environment.
 
 ### 2. Forward Alex requests to your skill
 
@@ -40,7 +40,7 @@ From the [ASK developer console](https://developer.amazon.com/alexa/console/ask)
 
 ### 3. Start your debugger
 
-To debug your Node.js skill with VS Code, you'll need to add a launch configuration to your skill project. From the menu, select **Debug > Add Configuration...**. Copy and paste the following configuration to generated `launch.json` file:
+To debug your Python skill with VS Code, you'll need to add a launch configuration to your skill project. From the menu, select **Debug > Add Configuration...**. Copy and paste the following configuration to generated `launch.json` file:
 
 ```json
 {
