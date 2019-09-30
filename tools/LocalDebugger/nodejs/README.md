@@ -47,7 +47,7 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
 
 Note the HTTPS URL provided (in the above, that would be `https://abc123.ngrok.io`).
 
-From the [ASK developer console](https://developer.amazon.com/alexa/console/ask) **Build** tab, select **Endpoint** from the sidebar and paste the the HTTPS URL into the **Default Region** field. Finally save your update with **Save Endpoints**.
+From the [ASK developer console](https://developer.amazon.com/alexa/console/ask) **Build** tab, select **Endpoint** from the sidebar and paste the the HTTPS URL into the **Default Region** field. Select option 2 **Wildcard Certificate** from the certificate dropdown. Finally save your update with **Save Endpoints**.
 
 ### <a name="start-debugger"></a> 3. Start your debugger
 
