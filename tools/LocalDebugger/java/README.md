@@ -2,7 +2,6 @@
 
 If you plan on hosting your Alexa skill code on AWS Lambda, we’ll demonstrate how you can speed up your development process by setting up a local debugging workflow with our provided scripts and other proxy solutions.
 
-
 ## Contents
 
 1. [Setting up debugging workflow](#setup)
@@ -12,7 +11,7 @@ If you plan on hosting your Alexa skill code on AWS Lambda, we’ll demonstrate 
 
 ### 1. Download the debug run script
 
-[Download a copy of the script for Java](local-debugger.js) and save it into your skill code project directory. This script will help invoke your skill code in your local environment.
+[Download the local debugger package for Java](com/amazon/ask/debugger) and save it into your skill code project directory. This script will help invoke your skill code in your local environment.
 
 ### 2. Forward Alex requests to your skill
 
@@ -44,7 +43,7 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
 
 Note the HTTPS URL provided (in the above, that would be `https://abc123.ngrok.io`).
 
-From the [ASK developer console](https://developer.amazon.com/alexa/console/ask) **Build** tab, select **Endpoint** from the sidebar and paste the the HTTPS URL into the **Default Region** field. Select the second option - **Wildcard Certificate** from the certificate type drop down. Finally save your update with **Save Endpoints**.
+From the [ASK developer console](https://developer.amazon.com/alexa/console/ask) **Build** tab, select **Endpoint** from the sidebar and paste the the HTTPS URL into the **Default Region** field. Select option 2 **Wildcard Certificate** from the certificate dropdown. Finally save your update with **Save Endpoints**.
 
 ### 3. Start your debugger
 
@@ -58,11 +57,13 @@ To debug your skill with VS Code, you'll need to add a launch configuration to y
             "type": "java",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}/local-debugger.js",
+            // Specify name of local adapter(for java) class
+            "mainClass": "com.amazon.ask.debugger.LocalDebugger",
             "args": [
-                "--portNumber", "3001",
-                "--skillEntryFile", "Path/To/index.js",
-                "--lambdaHandler", "handler"
+                // port number on your local host where the alexa requests will be routed to
+                "--portNumber", (Example)"3001",
+                // name of your java stream handler class name
+                "--skillStreamHandlerClass", (Example)"com.amazon.ask.helloworld.HelloWorldStreamHandler"
             ],
         }
     ]
@@ -70,9 +71,8 @@ To debug your skill with VS Code, you'll need to add a launch configuration to y
 
 ```
 
-Be sure to update the `--skillEntryFile` option above to your AWS Lambda handler file.
-
-To start debugging your skill, from the menu, select `Debug > Start Debugging`.
+Be sure to update the `--skillStreamHandlerClass` with your stream handler class name.
+If `--portNumber` isn't specfied, a free port will be chosen. The port number will be displayed in the console log when the debugger is started.
 
 ### 4. Invoke your skill and debug
 

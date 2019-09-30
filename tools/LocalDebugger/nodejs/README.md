@@ -61,11 +61,15 @@ To debug your Node.js skill with VS Code, you'll need to add a launch configurat
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
+            // Specify path to the downloaded local adapter(for nodejs) file
             "program": "${workspaceRoot}/local-debugger.js",
             "args": [
-                "--portNumber", "3001",
-                "--skillEntryFile", "Path/To/index.js",
-                "--lambdaHandler", "handler"
+                // port number on your local host where the alexa requests will be routed to
+                "--portNumber", (Example)"3001",
+                // name of your nodejs main skill file
+                "--skillEntryFile", (Example)"./custom/index.js",
+                // name of your lambda handler
+                "--lambdaHandler", (Example)"handler"
             ],
         }
     ]
@@ -73,7 +77,8 @@ To debug your Node.js skill with VS Code, you'll need to add a launch configurat
 
 ```
 
-Be sure to update the `--skillEntryFile` option above to your AWS Lambda handler file.
+Be sure to update the `--skillEntryFile` and `--lambdaHandler` option above to your AWS Lambda handler file.
+If `--portNumber` isn't specfied, a free port will be chosen. The port number will be displayed in the console log when the debugger is started.
 
 To start debugging your skill, from the menu, select `Debug > Start Debugging`.
 

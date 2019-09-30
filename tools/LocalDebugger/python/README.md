@@ -11,7 +11,7 @@ If you plan on hosting your Alexa skill code on AWS Lambda, we’ll demonstrate 
 
 ### 1. Download the debug run script
 
-[Download a copy of the script for Python](local-debugger.py) and save it into your skill code project directory. This script will help invoke your skill code in your local environment.
+[Download a copy of the script for Python](local_debugger.py) and save it into your skill code project directory. This script will help invoke your skill code in your local environment.
 
 ### 2. Forward Alex requests to your skill
 
@@ -43,7 +43,7 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
 
 Note the HTTPS URL provided (in the above, that would be `https://abc123.ngrok.io`).
 
-From the [ASK developer console](https://developer.amazon.com/alexa/console/ask) **Build** tab, select **Endpoint** from the sidebar and paste the the HTTPS URL into the **Default Region** field. Select **Wildcard Certificate** from the certificate drop down. Finally save your update with **Save Endpoints**.
+From the [ASK developer console](https://developer.amazon.com/alexa/console/ask) **Build** tab, select **Endpoint** from the sidebar and paste the the HTTPS URL into the **Default Region** field. Select option 2 **Wildcard Certificate** from the certificate dropdown. Finally save your update with **Save Endpoints**.
 
 ### 3. Start your debugger
 
@@ -57,19 +57,24 @@ To debug your Python skill with VS Code, you'll need to add a launch configurati
             "type": "python",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}/local-debugger.js",
+            // Specify path to the downloaded local adapter(for python) file
+            "program": "${workspaceRoot}/local_debugger.py",
             "args": [
-                "--portNumber", "3001",
-                "--skillEntryFile", "Path/To/index.js",
-                "--lambdaHandler", "handler"
+                // port number on your local host where the alexa requests will be routed to
+                "--portNumber", (Example)"3001",
+                // name of your python main skill file
+                "--skillEntryFile", (Example)"./py/hello_world.py",
+                // name of your lambda handler
+                "--lambdaHandler", (Example)"handler"
             ],
         }
     ]
 }
 
 ```
-
-Be sure to update the `--skillEntryFile` option above to your AWS Lambda handler file.
+ 
+Be sure to update the `--skillEntryFile` and `--lambdaHandler` option above to your AWS Lambda handler file.
+If `--portNumber` isn't specfied, a free port will be chosen. The port number will be displayed in the console log when the debugger is started.
 
 To start debugging your skill, from the menu, select `Debug > Start Debugging`.
 
