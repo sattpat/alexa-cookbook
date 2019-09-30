@@ -11,7 +11,7 @@ If you plan on hosting your Alexa skill code on AWS Lambda, we’ll demonstrate 
 
 ### 1. Download the debug run script
 
-[Download a copy of the script for Python](local-debugger.py) and save it to the root of your skill’s project directory. This script will help invoke your skill code in your local environment.
+[Download a copy of the script for Python](local-debugger.py) and save it into your skill code project directory. This script will help invoke your skill code in your local environment.
 
 ### 2. Forward Alex requests to your skill
 
@@ -43,7 +43,7 @@ Connections                   ttl     opn     rt1     rt5     p50     p90
 
 Note the HTTPS URL provided (in the above, that would be `https://abc123.ngrok.io`).
 
-From the [ASK developer console](https://developer.amazon.com/alexa/console/ask) **Build** tab, select **Endpoint** from the sidebar and paste the the HTTPS URL into the **Default Region** field. Finally save your update with **Save Endpoints**.
+From the [ASK developer console](https://developer.amazon.com/alexa/console/ask) **Build** tab, select **Endpoint** from the sidebar and paste the the HTTPS URL into the **Default Region** field. Select **Wildcard Certificate** from the certificate drop down. Finally save your update with **Save Endpoints**.
 
 ### 3. Start your debugger
 
@@ -59,7 +59,7 @@ To debug your Python skill with VS Code, you'll need to add a launch configurati
             "name": "Launch Program",
             "program": "${workspaceRoot}/local-debugger.js",
             "args": [
-                "--porftNumber", "3001",
+                "--portNumber", "3001",
                 "--skillEntryFile", "Path/To/index.js",
                 "--lambdaHandler", "handler"
             ],
@@ -83,7 +83,7 @@ Finally, invoke your skill by typing or speaking to Alexa. All requests sent fro
 
 ### 1. Download the debug run script
 
-[Download a copy of the script for Python](local-debugger.js) and save it to the root of your skill’s project directory. This script will help invoke your skill code in your local environment.
+[Download a copy of the script for Python](local-debugger.js) and save it into your skill code project directory. This script will help invoke your skill code in your local environment.
 
 ### 2. Forward Alex requests to your skill
 
