@@ -63,7 +63,7 @@ To debug your Node.js skill with VS Code, you'll need to add a launch configurat
             "name": "Launch Program",
             "program": "${workspaceRoot}/local-debugger.js",
             "args": [
-                "--porftNumber", "3001",
+                "--portNumber", "3001",
                 "--skillEntryFile", "Path/To/index.js",
                 "--lambdaHandler", "handler"
             ],
